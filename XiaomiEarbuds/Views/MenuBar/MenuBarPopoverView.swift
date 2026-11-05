@@ -47,11 +47,12 @@ struct MenuBarPopoverView: View {
                             get: { nc.ancMode },
                             set: { nc.selectANCMode($0) }
                         )) {
-                            ForEach(ANCMode.allCases) { mode in
-                                Text(mode.displayName).tag(mode)
-                            }
+                            Image(systemName: "ear").tag(ANCMode.transparency)
+                            Image(systemName: "ear.trianglebadge.exclamationmark").tag(ANCMode.noiseCancellation)
+                            Image(systemName: "ear.badge.waveform").tag(ANCMode.off)
                         }
                         .pickerStyle(.segmented)
+                        .help("Transparency / Noise Cancellation / Off")
 
                         if nc.ancMode == .noiseCancellation {
                             HStack(spacing: 4) {

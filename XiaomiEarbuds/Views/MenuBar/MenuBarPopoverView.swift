@@ -16,7 +16,7 @@ struct MenuBarPopoverView: View {
                     Text(deviceVM.device.name).font(.headline).lineLimit(1)
                     ConnectionStatusDot(isConnected: deviceVM.isConnected)
                 }
-                Spacer()
+                Spacer(minLength: 0)
             }
             .padding(12)
 
@@ -24,79 +24,71 @@ struct MenuBarPopoverView: View {
 
             if !deviceVM.isConnected {
                 VStack(spacing: 12) {
-                    Image(systemName: "headphones")
-                        .font(.system(size: 32))
-                        .foregroundStyle(.tertiary)
-                    Text("Disconnected")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                    Image(systemName: "headphones").font(.system(size: 32)).foregroundStyle(.tertiary)
+                    Text("Disconnected").font(.subheadline).foregroundStyle(.secondary)
                     if deviceVM.connectionState == .connecting {
                         ProgressView().controlSize(.small)
                     } else {
                         Button("Connect") { Task { await deviceVM.connect() } }
-                            .buttonStyle(.borderedProminent)
-                            .controlSize(.small)
+                            .buttonStyle(.borderedProminent).controlSize(.small)
                     }
                 }
                 .frame(maxWidth: .infinity)
-                .padding(24)
-            }
+                .padding(20)
+            } else {
+                VStack(alignment: .leading, spacing: 10) {
+                    // Battery
+                    QuickBatteryView()
 
-            if deviceVM.isConnected {
-            // Content
-            VStack(alignment: .leading, spacing: 10) {
-                // Battery
-                QuickBatteryView()
+                    // ANC
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Noise Control").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+                        Picker("ANC", selection: Binding(
+                            get: { nc.ancMode },
+                            set: { nc.selectANCMode($0) }
+                        )) {
+                            ForEach(ANCMode.allCases) { mode in
+                                Text(mode.displayName).tag(mode)
+                            }
+                        }
+                        .pickerStyle(.segmented)
 
-                // ANC
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Noise Control").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-
-                    Picker("ANC", selection: Binding(
-                        get: { nc.ancMode },
-                        set: { nc.selectANCMode($0) }
-                    )) {
-                        ForEach(ANCMode.allCases) { Text($0.displayName).tag($0) }
-                    }
-                    .pickerStyle(.segmented)
-
-                    if nc.ancMode == .noiseCancellation {
-                        HStack(spacing: 4) {
-                            Text("Light").font(.caption2).foregroundStyle(.tertiary)
-                            Slider(value: $nc.ancDepth, in: 0...1, onEditingChanged: { if !$0 { nc.commitDepth() } })
-                                .controlSize(.small)
-                            Text("Deep").font(.caption2).foregroundStyle(.tertiary)
+                        if nc.ancMode == .noiseCancellation {
+                            HStack(spacing: 4) {
+                                Text("Light").font(.caption2).foregroundStyle(.tertiary)
+                                Slider(value: $nc.ancDepth, in: 0...1, onEditingChanged: { if !$0 { nc.commitDepth() } })
+                                    .controlSize(.small)
+                                Text("Deep").font(.caption2).foregroundStyle(.tertiary)
+                            }
                         }
                     }
+                    .padding(8)
+                    .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 8))
+
+                    // Sound + Codec
+                    VStack(spacing: 6) {
+                        HStack {
+                            Text("Sound Mode").font(.caption)
+                            Spacer(minLength: 4)
+                            Picker("", selection: Binding(
+                                get: { audioVM.soundMode },
+                                set: { audioVM.selectSoundMode($0) }
+                            )) {
+                                ForEach(SoundMode.allCases) { Text($0.displayName).tag($0) }
+                            }
+                            .labelsHidden().pickerStyle(.menu).controlSize(.small)
+                        }
+                        HStack {
+                            Text("Codec").font(.caption)
+                            Spacer(minLength: 4)
+                            Text(audioVM.codec.displayName).font(.caption).foregroundStyle(.secondary)
+                        }
+                    }
+                    .padding(.horizontal, 4)
                 }
                 .padding(10)
-                .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 8))
-
-                // Sound
-                HStack {
-                    Text("Sound Mode").font(.caption)
-                    Spacer()
-                    Picker("", selection: Binding(
-                        get: { audioVM.soundMode },
-                        set: { audioVM.selectSoundMode($0) }
-                    )) {
-                        ForEach(SoundMode.allCases) { Text($0.displayName).tag($0) }
-                    }
-                    .labelsHidden().pickerStyle(.menu).controlSize(.small)
-                }
-                .padding(.horizontal, 4)
-
-                HStack {
-                    Text("Codec").font(.caption)
-                    Spacer()
-                    Text(audioVM.codec.displayName).font(.caption).foregroundStyle(.secondary)
-                }
-                .padding(.horizontal, 4)
             }
-            .padding(12)
-            } // end if connected
         }
-        .frame(width: 280)
-        .fixedSize()
+        .frame(width: 260)
     }
 }

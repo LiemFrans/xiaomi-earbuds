@@ -27,8 +27,11 @@ A native macOS companion app for **REDMI Buds 8 Pro** (and compatible Xiaomi/Red
 
 ## 📸 Screenshots
 
-### Main Window — Overview
+### Main Window
 ![Main Window](screenshots/overview.png)
+
+### Menu Bar Popover
+![Menu Bar Popover](screenshots/menu-bar-popover.png)
 
 ## 🏗️ Architecture
 

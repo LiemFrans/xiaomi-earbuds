@@ -1,0 +1,824 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		050D8E41B76E4ABA095F5872 /* CommandBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B62DA4CE6CB77732969FB9 /* CommandBuilder.swift */; };
+		07509236C9D11E647F4B140E /* GesturePickerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BBB17CDD15EF48CDF8A1DD /* GesturePickerRow.swift */; };
+		0E2BEBCF3142CAC9136A7D32 /* SceneRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64832332D19B6379B6C6306 /* SceneRendering.swift */; };
+		0FD81470C7661065915A7F69 /* ANCMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D1A3C1D4B5BC62A3E9A907 /* ANCMode.swift */; };
+		102AB6CB55AA14CB906826C2 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D55713CDA8131DB83E79FCD /* BluetoothError.swift */; };
+		13C1FA22439418FB3ACB3C16 /* QuickBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A08257206269007C22749D3 /* QuickBatteryView.swift */; };
+		15DF8ED3AACCF6A6D69B61D1 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E9507D73E87DB16A5276CE /* SidebarView.swift */; };
+		199D3CCA41091C0632800033 /* SettingToggleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA902EE7479794BF3E1E014 /* SettingToggleRow.swift */; };
+		19FEAC9A4E6694A2F013FF60 /* DeviceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343C09CE24DB2EF24C14072F /* DeviceViewModel.swift */; };
+		1D2FAAC309EC05E6C1613584 /* Data+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C0FB3493F7195B0921882 /* Data+Hex.swift */; };
+		1FA24339978B9D6021A40760 /* ResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8AC1EDEA3B56103733FF14 /* ResponseParser.swift */; };
+		20E699F39DC25EE486B6D22F /* DeviceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688F1B3A617EA4EABF24E19 /* DeviceStore.swift */; };
+		2338EEF4ABC43D54595ACBE4 /* DepthSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554FCCB97106467B57C8E4A7 /* DepthSlider.swift */; };
+		255A8E33B6AB617571D31319 /* SpatialAudioPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C72759550A54A29AC2406 /* SpatialAudioPage.swift */; };
+		2785C3B328F8B9E19CCEF2B9 /* GestureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF67FA9FA15434901560C84 /* GestureViewModel.swift */; };
+		2D2301C548C97BA1EE484C67 /* OverviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3564C76C205C89E6B7404E2 /* OverviewPage.swift */; };
+		31CAEB172D0174A2B3FE606F /* GesturesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B962C1B24F8F4D99043CFD /* GesturesPage.swift */; };
+		36ABC9F0FBA30C7E4C6DD6D9 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB86F18BF277D215755CE2F /* SettingsPage.swift */; };
+		4003A8C039E13B6A238B1E4B /* DeviceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BBE619B28D4726FF74870 /* DeviceSettings.swift */; };
+		432685149FDDAC7B0F65A630 /* BatteryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1680303CE798910455F25ACF /* BatteryInfo.swift */; };
+		4544D3DFCA1880ABA5856EF7 /* SoundMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BCBEE50C33C16E5E8990B9 /* SoundMode.swift */; };
+		4CF09633A0D5485897309315 /* NoiseControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8426FFA94C764CEDDE9C461C /* NoiseControlViewModel.swift */; };
+		51966A3F7589059E46FF2FF5 /* Color+Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4748F653E74470AA8FB17808 /* Color+Battery.swift */; };
+		5526405ED7851A7A6F51BD3D /* SpatialAudioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB60DFE5CAA4C62885A39B57 /* SpatialAudioViewModel.swift */; };
+		572BE2C56808194B727617DC /* GestureConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD829A11575CF555CCDE41DD /* GestureConfig.swift */; };
+		57FA31951E04FAEF588CD16E /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F82B389523B3BE638B7CF374 /* IOBluetooth.framework */; };
+		5EA86F229CF93126C60C9D9C /* AudioPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19A0DE4D975607AC0848BC9 /* AudioPage.swift */; };
+		5ECD57A7FB537C22D7ECC09E /* ComponentCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F170DBDBAAD3557B0AF5BD /* ComponentCatalog.swift */; };
+		603AAAD74FE88F47B06FE6B4 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845A36DC511DE5B4072E3BE8 /* CoreBluetooth.framework */; };
+		680D80BB3108F1422B94FF3F /* RenameSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C46780C467981628052C932 /* RenameSheet.swift */; };
+		6873613D8D4CC8B537DA1247 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62D51F803E6ED771994743D /* AppLogger.swift */; };
+		6B899BBDBD3004020D6A9B36 /* SampleRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D481C2723CF381E5D9E891 /* SampleRate.swift */; };
+		6BC692D90A01991967022D78 /* MenuBarPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799DD2CCAE43FF5C0C8396FC /* MenuBarPopoverView.swift */; };
+		74B07FE8986B0F367AD59D28 /* ANCModePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D814F157671CDE87A685F /* ANCModePicker.swift */; };
+		761D653E34DC395F3BFA3330 /* AudioCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A388B3A286BFAF29812D8902 /* AudioCodec.swift */; };
+		79E6D02CC7E4606E3056BCB7 /* SpacingTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C24543224FE8264D0A522A /* SpacingTokens.swift */; };
+		7AF934EC2E793317596E85BA /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CE93EF219D4FF5CA86BBFE /* SettingsViewModel.swift */; };
+		8FBB6248FDE2E9DEF6B77528 /* SoundModeRadioGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D155D8194E68043EEC058 /* SoundModeRadioGroup.swift */; };
+		92536E079760948D1B237419 /* AudioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E09182DCF817DD23F6226E /* AudioViewModel.swift */; };
+		92FEFEFE0553C795F2CEC7DA /* DeviceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0F739B06344F22FE1D00E /* DeviceHeaderView.swift */; };
+		9AE37E0FCB4E3E3CCCE04B67 /* DeviceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3189005F106A7F67377170DA /* DeviceModels.swift */; };
+		9C8286E067B225A30A7088D4 /* AudioQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC491408C99515861FA3FDBE /* AudioQuality.swift */; };
+		9CE8B1EE4E2EFD0283292E8B /* NoiseControlPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B9A9CA2928EA2B5487E763 /* NoiseControlPage.swift */; };
+		A24798D7680A514310A9557B /* EarbudDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5828A02850353469AEB2A27 /* EarbudDevice.swift */; };
+		AA0AB7B76DD34D6EB0AAD187 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF13178ACD040A050B1B94C /* BluetoothManager.swift */; };
+		ABB4FDCF9B5AACB5055039F8 /* ContentRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E18791D4966488A220F16B /* ContentRouter.swift */; };
+		ACB1E45F1B1327F8201F1760 /* ClassicBTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258E15611AEE5A4610F2603F /* ClassicBTManager.swift */; };
+		AD621CECFD6AD0FA933E6C21 /* GestureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386A363C89E1FB6CBF87A136 /* GestureAction.swift */; };
+		B2B84C5B3441FE8A7AF4A491 /* TypographyTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1BF6F9EA111ABA644748B4 /* TypographyTokens.swift */; };
+		B5AD66FBFE0F0E9B95A8BC1D /* ProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625915601B103A656F8CC01 /* ProtocolTests.swift */; };
+		C0494C7962F40B28AF07C313 /* SectionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314F9DD3518CB171DDFBAAD6 /* SectionCard.swift */; };
+		C915CB2629BE48474641FD0D /* FindDeviceSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD69FDEFB44D75B7B630D44 /* FindDeviceSheet.swift */; };
+		C97D7FE50F65F94F8EFC0C53 /* XiaomiProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F23631623139FBBF4EB439 /* XiaomiProtocol.swift */; };
+		CA20813CD970695076E2B472 /* CodecRadioGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AFB64FFE5AEEC0B4ED1093 /* CodecRadioGroup.swift */; };
+		D088498E5809B354DBE155DE /* ProtocolConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0C852D064732017D85739 /* ProtocolConstants.swift */; };
+		DA0F70254169B3D1A38EA6AF /* BatteryGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7DE1E5B32319CE12745C72 /* BatteryGaugeView.swift */; };
+		DB2DA8E6CD93A5288E2130FA /* ColorTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982F632CEA2B4030E86EF2FB /* ColorTokens.swift */; };
+		DB87F587319C0B57B86B5D71 /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2EB2F62EDC4EB8359BC19E /* MainWindowView.swift */; };
+		E90601E3D1E8161E39886636 /* ConnectionStatusDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9498CA564667ADB00110371D /* ConnectionStatusDot.swift */; };
+		EB32AD8E87BED4003E40078B /* XiaomiEarbudsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61800F87D8469D09A33D5C1A /* XiaomiEarbudsApp.swift */; };
+		F2B787E40C22DFAE30CA47B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D650C4D73B543DD8420C894 /* AppDelegate.swift */; };
+		FB6CB175CAE8FDF8BF596404 /* ProtocolTestFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1D11531AB7889F8D8CA6A6 /* ProtocolTestFixtures.swift */; };
+		FDF0F1602D2000FEA9E7C268 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14BE35447EDCC9D6C62A3B2 /* AppSettings.swift */; };
+		FF82E7A2503ADAF82BB4B681 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBCD283C10D44D491EBA503 /* BLEManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		550EAD48D5F1873A253B9555 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C1C4B36D8069A76008E661B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 826ECB0BBFDD93A58556C5A3;
+			remoteInfo = XiaomiEarbuds;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00D1A3C1D4B5BC62A3E9A907 /* ANCMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANCMode.swift; sourceTree = "<group>"; };
+		0310E594CA3E495279D9E7C9 /* XiaomiEarbuds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaomiEarbuds.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F1BF6F9EA111ABA644748B4 /* TypographyTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyTokens.swift; sourceTree = "<group>"; };
+		1680303CE798910455F25ACF /* BatteryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInfo.swift; sourceTree = "<group>"; };
+		17BCBEE50C33C16E5E8990B9 /* SoundMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundMode.swift; sourceTree = "<group>"; };
+		19E18791D4966488A220F16B /* ContentRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentRouter.swift; sourceTree = "<group>"; };
+		1D55713CDA8131DB83E79FCD /* BluetoothError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothError.swift; sourceTree = "<group>"; };
+		258E15611AEE5A4610F2603F /* ClassicBTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicBTManager.swift; sourceTree = "<group>"; };
+		2C46780C467981628052C932 /* RenameSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameSheet.swift; sourceTree = "<group>"; };
+		30B9A9CA2928EA2B5487E763 /* NoiseControlPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoiseControlPage.swift; sourceTree = "<group>"; };
+		314F9DD3518CB171DDFBAAD6 /* SectionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCard.swift; sourceTree = "<group>"; };
+		3189005F106A7F67377170DA /* DeviceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModels.swift; sourceTree = "<group>"; };
+		343C09CE24DB2EF24C14072F /* DeviceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceViewModel.swift; sourceTree = "<group>"; };
+		386A363C89E1FB6CBF87A136 /* GestureAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureAction.swift; sourceTree = "<group>"; };
+		4748F653E74470AA8FB17808 /* Color+Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Battery.swift"; sourceTree = "<group>"; };
+		48F0C852D064732017D85739 /* ProtocolConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolConstants.swift; sourceTree = "<group>"; };
+		4A9C72759550A54A29AC2406 /* SpatialAudioPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpatialAudioPage.swift; sourceTree = "<group>"; };
+		554FCCB97106467B57C8E4A7 /* DepthSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthSlider.swift; sourceTree = "<group>"; };
+		59B62DA4CE6CB77732969FB9 /* CommandBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandBuilder.swift; sourceTree = "<group>"; };
+		5BF67FA9FA15434901560C84 /* GestureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureViewModel.swift; sourceTree = "<group>"; };
+		5EB86F18BF277D215755CE2F /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
+		61800F87D8469D09A33D5C1A /* XiaomiEarbudsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XiaomiEarbudsApp.swift; sourceTree = "<group>"; };
+		6F2EB2F62EDC4EB8359BC19E /* MainWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowView.swift; sourceTree = "<group>"; };
+		72B962C1B24F8F4D99043CFD /* GesturesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesPage.swift; sourceTree = "<group>"; };
+		745BBE619B28D4726FF74870 /* DeviceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSettings.swift; sourceTree = "<group>"; };
+		799DD2CCAE43FF5C0C8396FC /* MenuBarPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPopoverView.swift; sourceTree = "<group>"; };
+		79BBB17CDD15EF48CDF8A1DD /* GesturePickerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturePickerRow.swift; sourceTree = "<group>"; };
+		7A1D814F157671CDE87A685F /* ANCModePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANCModePicker.swift; sourceTree = "<group>"; };
+		7CD69FDEFB44D75B7B630D44 /* FindDeviceSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindDeviceSheet.swift; sourceTree = "<group>"; };
+		8426FFA94C764CEDDE9C461C /* NoiseControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoiseControlViewModel.swift; sourceTree = "<group>"; };
+		845A36DC511DE5B4072E3BE8 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		8A08257206269007C22749D3 /* QuickBatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickBatteryView.swift; sourceTree = "<group>"; };
+		8EB0F739B06344F22FE1D00E /* DeviceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHeaderView.swift; sourceTree = "<group>"; };
+		9498CA564667ADB00110371D /* ConnectionStatusDot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatusDot.swift; sourceTree = "<group>"; };
+		94CE93EF219D4FF5CA86BBFE /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		982F632CEA2B4030E86EF2FB /* ColorTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTokens.swift; sourceTree = "<group>"; };
+		9B8AC1EDEA3B56103733FF14 /* ResponseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseParser.swift; sourceTree = "<group>"; };
+		9D650C4D73B543DD8420C894 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9E7DE1E5B32319CE12745C72 /* BatteryGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryGaugeView.swift; sourceTree = "<group>"; };
+		A14BE35447EDCC9D6C62A3B2 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		A2AFB64FFE5AEEC0B4ED1093 /* CodecRadioGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodecRadioGroup.swift; sourceTree = "<group>"; };
+		A3564C76C205C89E6B7404E2 /* OverviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewPage.swift; sourceTree = "<group>"; };
+		A388B3A286BFAF29812D8902 /* AudioCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCodec.swift; sourceTree = "<group>"; };
+		A5828A02850353469AEB2A27 /* EarbudDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarbudDevice.swift; sourceTree = "<group>"; };
+		A62D51F803E6ED771994743D /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
+		B3C24543224FE8264D0A522A /* SpacingTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacingTokens.swift; sourceTree = "<group>"; };
+		BCF13178ACD040A050B1B94C /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		BFA902EE7479794BF3E1E014 /* SettingToggleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingToggleRow.swift; sourceTree = "<group>"; };
+		C625915601B103A656F8CC01 /* ProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolTests.swift; sourceTree = "<group>"; };
+		C688F1B3A617EA4EABF24E19 /* DeviceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStore.swift; sourceTree = "<group>"; };
+		C7E09182DCF817DD23F6226E /* AudioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewModel.swift; sourceTree = "<group>"; };
+		C8F170DBDBAAD3557B0AF5BD /* ComponentCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentCatalog.swift; sourceTree = "<group>"; };
+		CBBCD283C10D44D491EBA503 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
+		CC3C0FB3493F7195B0921882 /* Data+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Hex.swift"; sourceTree = "<group>"; };
+		D04D155D8194E68043EEC058 /* SoundModeRadioGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundModeRadioGroup.swift; sourceTree = "<group>"; };
+		D0F23631623139FBBF4EB439 /* XiaomiProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XiaomiProtocol.swift; sourceTree = "<group>"; };
+		DC1D11531AB7889F8D8CA6A6 /* ProtocolTestFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolTestFixtures.swift; sourceTree = "<group>"; };
+		DC491408C99515861FA3FDBE /* AudioQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioQuality.swift; sourceTree = "<group>"; };
+		DD829A11575CF555CCDE41DD /* GestureConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureConfig.swift; sourceTree = "<group>"; };
+		E2E9507D73E87DB16A5276CE /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		E64832332D19B6379B6C6306 /* SceneRendering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneRendering.swift; sourceTree = "<group>"; };
+		F19A0DE4D975607AC0848BC9 /* AudioPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPage.swift; sourceTree = "<group>"; };
+		F2D481C2723CF381E5D9E891 /* SampleRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleRate.swift; sourceTree = "<group>"; };
+		F70E49679CCA0A3B01BE493E /* XiaomiEarbudsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XiaomiEarbudsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F82B389523B3BE638B7CF374 /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
+		FB60DFE5CAA4C62885A39B57 /* SpatialAudioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpatialAudioViewModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CF6C74EE05AF33446F1C87D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57FA31951E04FAEF588CD16E /* IOBluetooth.framework in Frameworks */,
+				603AAAD74FE88F47B06FE6B4 /* CoreBluetooth.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		13D84A1DB7E0629450BCD3AE /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				799DD2CCAE43FF5C0C8396FC /* MenuBarPopoverView.swift */,
+				8A08257206269007C22749D3 /* QuickBatteryView.swift */,
+			);
+			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		1B3793AD3EA93BEA3696ED47 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4F81E7D1FFF4419D2FB588A2 /* MainWindow */,
+				13D84A1DB7E0629450BCD3AE /* MenuBar */,
+				849420308D735A545CD8781E /* Pages */,
+				4B7E24CFD01B5FFA8F629433 /* Sheets */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2E6429A27EF99D0B81C32F15 /* XiaomiEarbuds */ = {
+			isa = PBXGroup;
+			children = (
+				3BC42ABB4A1AAE2221A4763C /* App */,
+				870E58A0DA97B62A8F37CF23 /* DesignSystem */,
+				61F5CC60AD57AC4997A6EE01 /* Models */,
+				64FE40DF690B8F6DA977F2F3 /* Services */,
+				6DA47F1A1DCF6691086EA3BB /* Utilities */,
+				6081E9A98E2B68055A874BC7 /* ViewModels */,
+				1B3793AD3EA93BEA3696ED47 /* Views */,
+			);
+			path = XiaomiEarbuds;
+			sourceTree = "<group>";
+		};
+		304326F24B8C43294F1D67AA /* Previews */ = {
+			isa = PBXGroup;
+			children = (
+				C8F170DBDBAAD3557B0AF5BD /* ComponentCatalog.swift */,
+			);
+			path = Previews;
+			sourceTree = "<group>";
+		};
+		3643357990650D834AB5C73F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				7A1D814F157671CDE87A685F /* ANCModePicker.swift */,
+				9E7DE1E5B32319CE12745C72 /* BatteryGaugeView.swift */,
+				A2AFB64FFE5AEEC0B4ED1093 /* CodecRadioGroup.swift */,
+				9498CA564667ADB00110371D /* ConnectionStatusDot.swift */,
+				554FCCB97106467B57C8E4A7 /* DepthSlider.swift */,
+				8EB0F739B06344F22FE1D00E /* DeviceHeaderView.swift */,
+				79BBB17CDD15EF48CDF8A1DD /* GesturePickerRow.swift */,
+				314F9DD3518CB171DDFBAAD6 /* SectionCard.swift */,
+				BFA902EE7479794BF3E1E014 /* SettingToggleRow.swift */,
+				D04D155D8194E68043EEC058 /* SoundModeRadioGroup.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3BC42ABB4A1AAE2221A4763C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				9D650C4D73B543DD8420C894 /* AppDelegate.swift */,
+				61800F87D8469D09A33D5C1A /* XiaomiEarbudsApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4B7E24CFD01B5FFA8F629433 /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				7CD69FDEFB44D75B7B630D44 /* FindDeviceSheet.swift */,
+				2C46780C467981628052C932 /* RenameSheet.swift */,
+			);
+			path = Sheets;
+			sourceTree = "<group>";
+		};
+		4EF6A3A116412C0674481FBF /* XiaomiEarbudsTests */ = {
+			isa = PBXGroup;
+			children = (
+				DC1D11531AB7889F8D8CA6A6 /* ProtocolTestFixtures.swift */,
+				C625915601B103A656F8CC01 /* ProtocolTests.swift */,
+			);
+			name = XiaomiEarbudsTests;
+			path = Tests/XiaomiEarbudsTests;
+			sourceTree = "<group>";
+		};
+		4F81E7D1FFF4419D2FB588A2 /* MainWindow */ = {
+			isa = PBXGroup;
+			children = (
+				19E18791D4966488A220F16B /* ContentRouter.swift */,
+				6F2EB2F62EDC4EB8359BC19E /* MainWindowView.swift */,
+				E2E9507D73E87DB16A5276CE /* SidebarView.swift */,
+			);
+			path = MainWindow;
+			sourceTree = "<group>";
+		};
+		5B7DF735AC1F5F8BDA7F9FC0 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				59B62DA4CE6CB77732969FB9 /* CommandBuilder.swift */,
+				48F0C852D064732017D85739 /* ProtocolConstants.swift */,
+				9B8AC1EDEA3B56103733FF14 /* ResponseParser.swift */,
+				D0F23631623139FBBF4EB439 /* XiaomiProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		6081E9A98E2B68055A874BC7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				C7E09182DCF817DD23F6226E /* AudioViewModel.swift */,
+				343C09CE24DB2EF24C14072F /* DeviceViewModel.swift */,
+				5BF67FA9FA15434901560C84 /* GestureViewModel.swift */,
+				8426FFA94C764CEDDE9C461C /* NoiseControlViewModel.swift */,
+				94CE93EF219D4FF5CA86BBFE /* SettingsViewModel.swift */,
+				FB60DFE5CAA4C62885A39B57 /* SpatialAudioViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		61F5CC60AD57AC4997A6EE01 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				00D1A3C1D4B5BC62A3E9A907 /* ANCMode.swift */,
+				A388B3A286BFAF29812D8902 /* AudioCodec.swift */,
+				DC491408C99515861FA3FDBE /* AudioQuality.swift */,
+				1680303CE798910455F25ACF /* BatteryInfo.swift */,
+				1D55713CDA8131DB83E79FCD /* BluetoothError.swift */,
+				3189005F106A7F67377170DA /* DeviceModels.swift */,
+				745BBE619B28D4726FF74870 /* DeviceSettings.swift */,
+				A5828A02850353469AEB2A27 /* EarbudDevice.swift */,
+				386A363C89E1FB6CBF87A136 /* GestureAction.swift */,
+				DD829A11575CF555CCDE41DD /* GestureConfig.swift */,
+				F2D481C2723CF381E5D9E891 /* SampleRate.swift */,
+				E64832332D19B6379B6C6306 /* SceneRendering.swift */,
+				17BCBEE50C33C16E5E8990B9 /* SoundMode.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		64FE40DF690B8F6DA977F2F3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AD82648B71E9D8C4AB6BE417 /* Bluetooth */,
+				9027A8DD43168C33D817A2D7 /* Persistence */,
+				5B7DF735AC1F5F8BDA7F9FC0 /* Protocol */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		668570C6FA02D51F2549B2D7 = {
+			isa = PBXGroup;
+			children = (
+				2E6429A27EF99D0B81C32F15 /* XiaomiEarbuds */,
+				4EF6A3A116412C0674481FBF /* XiaomiEarbudsTests */,
+				BFFF06D6A71B8B0BF252BCF2 /* Frameworks */,
+				BD30BF0F415EC33A08AA58B9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6DA47F1A1DCF6691086EA3BB /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BE77E285346DBECB906FE1C0 /* Extensions */,
+				A3C6B7AC52B5513B3EB688CE /* Logging */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		849420308D735A545CD8781E /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				F19A0DE4D975607AC0848BC9 /* AudioPage.swift */,
+				72B962C1B24F8F4D99043CFD /* GesturesPage.swift */,
+				30B9A9CA2928EA2B5487E763 /* NoiseControlPage.swift */,
+				A3564C76C205C89E6B7404E2 /* OverviewPage.swift */,
+				5EB86F18BF277D215755CE2F /* SettingsPage.swift */,
+				4A9C72759550A54A29AC2406 /* SpatialAudioPage.swift */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		870E58A0DA97B62A8F37CF23 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				3643357990650D834AB5C73F /* Components */,
+				304326F24B8C43294F1D67AA /* Previews */,
+				C61B819F7727CB64E76663EA /* Tokens */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		9027A8DD43168C33D817A2D7 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				A14BE35447EDCC9D6C62A3B2 /* AppSettings.swift */,
+				C688F1B3A617EA4EABF24E19 /* DeviceStore.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		A3C6B7AC52B5513B3EB688CE /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				A62D51F803E6ED771994743D /* AppLogger.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		AD82648B71E9D8C4AB6BE417 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				CBBCD283C10D44D491EBA503 /* BLEManager.swift */,
+				BCF13178ACD040A050B1B94C /* BluetoothManager.swift */,
+				258E15611AEE5A4610F2603F /* ClassicBTManager.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		BD30BF0F415EC33A08AA58B9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0310E594CA3E495279D9E7C9 /* XiaomiEarbuds.app */,
+				F70E49679CCA0A3B01BE493E /* XiaomiEarbudsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE77E285346DBECB906FE1C0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4748F653E74470AA8FB17808 /* Color+Battery.swift */,
+				CC3C0FB3493F7195B0921882 /* Data+Hex.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BFFF06D6A71B8B0BF252BCF2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				845A36DC511DE5B4072E3BE8 /* CoreBluetooth.framework */,
+				F82B389523B3BE638B7CF374 /* IOBluetooth.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C61B819F7727CB64E76663EA /* Tokens */ = {
+			isa = PBXGroup;
+			children = (
+				982F632CEA2B4030E86EF2FB /* ColorTokens.swift */,
+				B3C24543224FE8264D0A522A /* SpacingTokens.swift */,
+				0F1BF6F9EA111ABA644748B4 /* TypographyTokens.swift */,
+			);
+			path = Tokens;
+			sourceTree = "<group>";
+		};
+		"TEMP_586EE8EE-B8ED-4610-B616-16DEBDCF9349" /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4019372589485CC77D0F480C /* XiaomiEarbudsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 008D4606ECEB468F233D6694 /* Build configuration list for PBXNativeTarget "XiaomiEarbudsTests" */;
+			buildPhases = (
+				5257C5B7D50C3599F49B786D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F7FB78AB2472F2E2CA3606C8 /* PBXTargetDependency */,
+			);
+			name = XiaomiEarbudsTests;
+			packageProductDependencies = (
+			);
+			productName = XiaomiEarbudsTests;
+			productReference = F70E49679CCA0A3B01BE493E /* XiaomiEarbudsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		826ECB0BBFDD93A58556C5A3 /* XiaomiEarbuds */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCC3AC4595BA45F8D2704980 /* Build configuration list for PBXNativeTarget "XiaomiEarbuds" */;
+			buildPhases = (
+				21BED37473A4DD409FD07091 /* Sources */,
+				CF6C74EE05AF33446F1C87D6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XiaomiEarbuds;
+			packageProductDependencies = (
+			);
+			productName = XiaomiEarbuds;
+			productReference = 0310E594CA3E495279D9E7C9 /* XiaomiEarbuds.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2C1C4B36D8069A76008E661B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					4019372589485CC77D0F480C = {
+						ProvisioningStyle = Automatic;
+					};
+					826ECB0BBFDD93A58556C5A3 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 6997B77BB98E0609E97A411F /* Build configuration list for PBXProject "XiaomiEarbuds" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 668570C6FA02D51F2549B2D7;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = BD30BF0F415EC33A08AA58B9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				826ECB0BBFDD93A58556C5A3 /* XiaomiEarbuds */,
+				4019372589485CC77D0F480C /* XiaomiEarbudsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		21BED37473A4DD409FD07091 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0FD81470C7661065915A7F69 /* ANCMode.swift in Sources */,
+				74B07FE8986B0F367AD59D28 /* ANCModePicker.swift in Sources */,
+				F2B787E40C22DFAE30CA47B2 /* AppDelegate.swift in Sources */,
+				6873613D8D4CC8B537DA1247 /* AppLogger.swift in Sources */,
+				FDF0F1602D2000FEA9E7C268 /* AppSettings.swift in Sources */,
+				761D653E34DC395F3BFA3330 /* AudioCodec.swift in Sources */,
+				5EA86F229CF93126C60C9D9C /* AudioPage.swift in Sources */,
+				9C8286E067B225A30A7088D4 /* AudioQuality.swift in Sources */,
+				92536E079760948D1B237419 /* AudioViewModel.swift in Sources */,
+				FF82E7A2503ADAF82BB4B681 /* BLEManager.swift in Sources */,
+				DA0F70254169B3D1A38EA6AF /* BatteryGaugeView.swift in Sources */,
+				432685149FDDAC7B0F65A630 /* BatteryInfo.swift in Sources */,
+				102AB6CB55AA14CB906826C2 /* BluetoothError.swift in Sources */,
+				AA0AB7B76DD34D6EB0AAD187 /* BluetoothManager.swift in Sources */,
+				ACB1E45F1B1327F8201F1760 /* ClassicBTManager.swift in Sources */,
+				CA20813CD970695076E2B472 /* CodecRadioGroup.swift in Sources */,
+				51966A3F7589059E46FF2FF5 /* Color+Battery.swift in Sources */,
+				DB2DA8E6CD93A5288E2130FA /* ColorTokens.swift in Sources */,
+				050D8E41B76E4ABA095F5872 /* CommandBuilder.swift in Sources */,
+				5ECD57A7FB537C22D7ECC09E /* ComponentCatalog.swift in Sources */,
+				E90601E3D1E8161E39886636 /* ConnectionStatusDot.swift in Sources */,
+				ABB4FDCF9B5AACB5055039F8 /* ContentRouter.swift in Sources */,
+				1D2FAAC309EC05E6C1613584 /* Data+Hex.swift in Sources */,
+				2338EEF4ABC43D54595ACBE4 /* DepthSlider.swift in Sources */,
+				92FEFEFE0553C795F2CEC7DA /* DeviceHeaderView.swift in Sources */,
+				9AE37E0FCB4E3E3CCCE04B67 /* DeviceModels.swift in Sources */,
+				4003A8C039E13B6A238B1E4B /* DeviceSettings.swift in Sources */,
+				20E699F39DC25EE486B6D22F /* DeviceStore.swift in Sources */,
+				19FEAC9A4E6694A2F013FF60 /* DeviceViewModel.swift in Sources */,
+				A24798D7680A514310A9557B /* EarbudDevice.swift in Sources */,
+				C915CB2629BE48474641FD0D /* FindDeviceSheet.swift in Sources */,
+				AD621CECFD6AD0FA933E6C21 /* GestureAction.swift in Sources */,
+				572BE2C56808194B727617DC /* GestureConfig.swift in Sources */,
+				07509236C9D11E647F4B140E /* GesturePickerRow.swift in Sources */,
+				2785C3B328F8B9E19CCEF2B9 /* GestureViewModel.swift in Sources */,
+				31CAEB172D0174A2B3FE606F /* GesturesPage.swift in Sources */,
+				DB87F587319C0B57B86B5D71 /* MainWindowView.swift in Sources */,
+				6BC692D90A01991967022D78 /* MenuBarPopoverView.swift in Sources */,
+				9CE8B1EE4E2EFD0283292E8B /* NoiseControlPage.swift in Sources */,
+				4CF09633A0D5485897309315 /* NoiseControlViewModel.swift in Sources */,
+				2D2301C548C97BA1EE484C67 /* OverviewPage.swift in Sources */,
+				D088498E5809B354DBE155DE /* ProtocolConstants.swift in Sources */,
+				13C1FA22439418FB3ACB3C16 /* QuickBatteryView.swift in Sources */,
+				680D80BB3108F1422B94FF3F /* RenameSheet.swift in Sources */,
+				1FA24339978B9D6021A40760 /* ResponseParser.swift in Sources */,
+				6B899BBDBD3004020D6A9B36 /* SampleRate.swift in Sources */,
+				0E2BEBCF3142CAC9136A7D32 /* SceneRendering.swift in Sources */,
+				C0494C7962F40B28AF07C313 /* SectionCard.swift in Sources */,
+				199D3CCA41091C0632800033 /* SettingToggleRow.swift in Sources */,
+				36ABC9F0FBA30C7E4C6DD6D9 /* SettingsPage.swift in Sources */,
+				7AF934EC2E793317596E85BA /* SettingsViewModel.swift in Sources */,
+				15DF8ED3AACCF6A6D69B61D1 /* SidebarView.swift in Sources */,
+				4544D3DFCA1880ABA5856EF7 /* SoundMode.swift in Sources */,
+				8FBB6248FDE2E9DEF6B77528 /* SoundModeRadioGroup.swift in Sources */,
+				79E6D02CC7E4606E3056BCB7 /* SpacingTokens.swift in Sources */,
+				255A8E33B6AB617571D31319 /* SpatialAudioPage.swift in Sources */,
+				5526405ED7851A7A6F51BD3D /* SpatialAudioViewModel.swift in Sources */,
+				B2B84C5B3441FE8A7AF4A491 /* TypographyTokens.swift in Sources */,
+				EB32AD8E87BED4003E40078B /* XiaomiEarbudsApp.swift in Sources */,
+				C97D7FE50F65F94F8EFC0C53 /* XiaomiProtocol.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5257C5B7D50C3599F49B786D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB6CB175CAE8FDF8BF596404 /* ProtocolTestFixtures.swift in Sources */,
+				B5AD66FBFE0F0E9B95A8BC1D /* ProtocolTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F7FB78AB2472F2E2CA3606C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 826ECB0BBFDD93A58556C5A3 /* XiaomiEarbuds */;
+			targetProxy = 550EAD48D5F1873A253B9555 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		119321B4E23DD9D2F11F8970 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		3A7D464032D242B4EEF95591 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		3D1FC5FABDA25F67F7FD4AFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = XiaomiEarbuds.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleName = "Xiaomi Earbuds";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Xiaomi Earbuds needs Bluetooth to connect to and control your earbuds.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaomi.earbuds;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7855562B439C4923DA4064BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaomi.earbuds.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XiaomiEarbuds.app/Contents/MacOS/XiaomiEarbuds";
+			};
+			name = Release;
+		};
+		841C6729C7AD2B70E617EB01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaomi.earbuds.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XiaomiEarbuds.app/Contents/MacOS/XiaomiEarbuds";
+			};
+			name = Debug;
+		};
+		994EBDD177365FCBF33C053E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = XiaomiEarbuds.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleName = "Xiaomi Earbuds";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Xiaomi Earbuds needs Bluetooth to connect to and control your earbuds.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaomi.earbuds;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		008D4606ECEB468F233D6694 /* Build configuration list for PBXNativeTarget "XiaomiEarbudsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				841C6729C7AD2B70E617EB01 /* Debug */,
+				7855562B439C4923DA4064BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6997B77BB98E0609E97A411F /* Build configuration list for PBXProject "XiaomiEarbuds" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A7D464032D242B4EEF95591 /* Debug */,
+				119321B4E23DD9D2F11F8970 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FCC3AC4595BA45F8D2704980 /* Build configuration list for PBXNativeTarget "XiaomiEarbuds" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				994EBDD177365FCBF33C053E /* Debug */,
+				3D1FC5FABDA25F67F7FD4AFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2C1C4B36D8069A76008E661B /* Project object */;
+}

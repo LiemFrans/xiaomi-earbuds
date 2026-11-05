@@ -1,0 +1,69 @@
+name: XiaomiEarbuds
+
+options:
+  bundleIdPrefix: com.xiaomi
+  deploymentTarget:
+    macOS: "15.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: false
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "15.0"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_HARDENED_RUNTIME: YES
+
+targets:
+  XiaomiEarbuds:
+    type: application
+    platform: macOS
+    sources:
+      - path: XiaomiEarbuds
+        excludes:
+          - "**/.DS_Store"
+    entitlements:
+      path: XiaomiEarbuds.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.xiaomi.earbuds
+        INFOPLIST_KEY_CFBundleName: "Xiaomi Earbuds"
+        INFOPLIST_KEY_LSUIElement: YES
+        INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription: "Xiaomi Earbuds needs Bluetooth to connect to and control your earbuds."
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - sdk: IOBluetooth.framework
+      - sdk: CoreBluetooth.framework
+
+  XiaomiEarbudsTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/XiaomiEarbudsTests
+        excludes:
+          - "**/.DS_Store"
+    dependencies:
+      - target: XiaomiEarbuds
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.xiaomi.earbuds.tests
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  XiaomiEarbuds:
+    build:
+      targets:
+        XiaomiEarbuds: all
+        XiaomiEarbudsTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - XiaomiEarbudsTests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

@@ -1,6 +1,6 @@
 # 🎧 Xiaomi Earbuds — Native macOS Companion App
 
-A native macOS companion app for **REDMI Buds 8 Pro** (and compatible Xiaomi/Redmi TWS earbuds). Built with SwiftUI, communicating directly with the earbuds over Bluetooth Classic RFCOMM using the reverse-engineered JieLi RCSP protocol.
+A native macOS companion app for **Xiaomi / Redmi TWS earbuds**. Built with SwiftUI, it talks to the earbuds directly over Bluetooth Classic RFCOMM using the reverse-engineered JieLi RCSP protocol — no account, no phone, no vendor app.
 
 > **No Xiaomi account required. No phone needed. Pure macOS.**
 
@@ -41,7 +41,7 @@ SwiftUI Views ──► @Observable ViewModels ──► XiaomiProtocol (RCSP Ac
                                               ClassicBTManager
                                               │ IOBluetooth RFCOMM Ch.28
                                               ▼
-                                         REDMI Buds 8 Pro
+                                    Xiaomi / Redmi earbuds
 ```
 
 - **Protocol**: JieLi RCSP over Bluetooth Classic RFCOMM (MIWEAR service)
@@ -53,7 +53,7 @@ SwiftUI Views ──► @Observable ViewModels ──► XiaomiProtocol (RCSP Ac
 
 - **macOS 15 Sequoia** or later
 - **Xcode 16+** (for building — needed for proper code signing)
-- **REDMI Buds 8 Pro** paired via System Settings → Bluetooth
+- Your **Xiaomi / Redmi earbuds** paired via System Settings → Bluetooth
 - Earbuds must **not** be connected to another device (phone) — disconnect from phone first
 
 ## 🚀 Getting Started
@@ -116,10 +116,15 @@ XiaomiEarbuds/
 Tested and working:
 - ✅ **REDMI Buds 8 Pro** (VID 0x2717, PID 0x50E3/0x50E5)
 
-Likely compatible (same RCSP protocol family):
-- Redmi Buds 6 Pro / 6 Lite / 6 Play
-- Redmi Buds 5 Pro / 5
-- Xiaomi Buds 5 Pro / 5 / 4 Pro
+Likely compatible (same JieLi RCSP protocol family):
+- Redmi Buds 8 / 8 Lite / 8 Active
+- Redmi Buds 7s / 6 Pro / 6 Lite / 6 Play / 6s
+- Redmi Buds 5 Pro / 5, Redmi Buds 4 Pro / 4
+- Xiaomi Buds 5 Pro / 5 / 4 Pro, Xiaomi OpenWear
+
+> **Universal by design** — the device name shown in the app is read live from
+> Bluetooth, and features are enabled only when the firmware reports support.
+> To add a model, probe its config IDs (see `tools/rfcomm_connect.swift --probe`).
 
 ## 🙏 Credits
 

@@ -24,6 +24,8 @@ final class DeviceViewModel {
     private let logger = Logger(subsystem: "com.xiaomi.earbuds", category: "DeviceVM")
 
     private var noiseControlVM: NoiseControlViewModel?
+    /// Cooldown after failed connect — don't let monitor retry immediately
+    private var connectCooldownUntil: ContinuousClock.Instant?
 
     init(device: EarbudDevice = EarbudDevice(), connectionState: ConnectionState = .disconnected) {
         self.device = device
@@ -46,8 +48,13 @@ final class DeviceViewModel {
     func startMonitoring() {
         monitor.onDeviceConnected = { [weak self] in
             guard let self, !self.isConnected, self.connectionState != .connecting else { return }
+            // Respect cooldown after failed connects
+            if let cooldown = self.connectCooldownUntil, ContinuousClock.now < cooldown {
+                self.logger.info("🔵 Earbuds detected but in cooldown — skipping auto-connect")
+                return
+            }
             self.logger.info("🔵 Auto-connect triggered by device monitor")
-            Task { await self.connectAndLoadState() }
+            Task { await self.connectAndLoadState(isAuto: true) }
         }
         monitor.onDeviceDisconnected = { [weak self] in
             guard let self, self.isConnected else { return }
@@ -64,20 +71,22 @@ final class DeviceViewModel {
 
     // MARK: - Connect
 
+    /// Manual connect (from the UI button) — 3 attempts.
     func connect() async {
-        await connectAndLoadState()
+        await connectAndLoadState(isAuto: false)
     }
 
-    private func connectAndLoadState() async {
+    private func connectAndLoadState(isAuto: Bool) async {
         connectionError = nil
         lastError = nil
         connectionState = .connecting
-        logger.info("🚀 Connect flow starting…")
+        logger.info("🚀 Connect flow starting (auto: \(isAuto))…")
         try? await Task.sleep(for: .seconds(1.5))
 
-        for attempt in 1...3 {
+        let maxAttempts = isAuto ? 1 : 3
+        for attempt in 1...maxAttempts {
             do {
-                logger.info("🔄 Connect attempt \(attempt)/3")
+                logger.info("🔄 Connect attempt \(attempt)/\(maxAttempts)")
                 if attempt > 1 { try await Task.sleep(for: .seconds(2)) }
 
                 try bluetoothManager.classicManager.connect()
@@ -98,6 +107,7 @@ final class DeviceViewModel {
                 device.isConnected = true
                 connectionError = nil
                 consecutiveFailures = 0
+                connectCooldownUntil = nil   // clear any cooldown after success
 
                 let info = try await proto.getDeviceInfo()
                 if !info.name.isEmpty { device.internalName = info.name }
@@ -126,10 +136,16 @@ final class DeviceViewModel {
             } catch {
                 logger.warning("❌ Attempt \(attempt) failed: \(error.localizedDescription)")
                 await cleanupAfterFailure()
-                if attempt == 3 {
+                if attempt == maxAttempts {
                     connectionError = error.localizedDescription
                     lastError = error.localizedDescription
                     connectionState = .disconnected
+                    // Longer cooldown when the phone holds the channel — retrying won't help
+                    var isBusy = false
+                    if case BluetoothError.rfcommBusy = error { isBusy = true }
+                    let cooldown: Duration = isBusy ? .seconds(120) : .seconds(30)
+                    connectCooldownUntil = .now + cooldown
+                    logger.info("⏳ Cooldown before next auto-connect (busy: \(isBusy))")
                 }
             }
         }

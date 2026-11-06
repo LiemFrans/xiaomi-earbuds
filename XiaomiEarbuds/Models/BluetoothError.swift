@@ -15,6 +15,7 @@ enum BluetoothError: Error, LocalizedError, Sendable {
     case invalidResponse
     case checksumMismatch
     case rfcommChannelFailed
+    case rfcommBusy
     case notConnected
     case alreadyConnected
     case encodingError
@@ -47,6 +48,8 @@ enum BluetoothError: Error, LocalizedError, Sendable {
             return "Response checksum verification failed."
         case .rfcommChannelFailed:
             return "Failed to open RFCOMM channel."
+        case .rfcommBusy:
+            return "Control channel is busy — close the Xiaomi Earbuds app on your phone to let this Mac control the earbuds."
         case .notConnected:
             return "No device is currently connected."
         case .alreadyConnected:

@@ -84,6 +84,12 @@ final class ClassicBTManager: NSObject {
         if result != kIOReturnSuccess {
             logger.error("openRFCOMMChannelSync failed: IOReturn=\(result) (0x\(String(format: "%08x", UInt32(bitPattern: Int32(result)))))")
             logger.error("Device state — paired: \(btDevice.isPaired()), connected: \(btDevice.isConnected()), name: \(btDevice.name ?? "nil")")
+
+            // -536870186 = kIOReturnExclusiveAccess: another host (phone) holds
+            // the MIWEAR control channel. Do not keep retrying.
+            if result == kIOReturnExclusiveAccess {
+                throw BluetoothError.rfcommBusy
+            }
             throw BluetoothError.rfcommChannelFailed
         }
 
@@ -104,7 +110,7 @@ final class ClassicBTManager: NSObject {
             channel.close()
         }
         rfcommChannel = nil
-        device?.closeConnection()
+        // Do NOT call device?.closeConnection() — that kills the audio BT link too
         device = nil
         channelDelegate = nil
         #endif

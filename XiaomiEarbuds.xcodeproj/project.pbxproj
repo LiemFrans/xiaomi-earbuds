@@ -25,6 +25,7 @@
 		2D2301C548C97BA1EE484C67 /* OverviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3564C76C205C89E6B7404E2 /* OverviewPage.swift */; };
 		31CAEB172D0174A2B3FE606F /* GesturesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B962C1B24F8F4D99043CFD /* GesturesPage.swift */; };
 		36ABC9F0FBA30C7E4C6DD6D9 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB86F18BF277D215755CE2F /* SettingsPage.swift */; };
+		3CBABCADD3A0CC884E70214E /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0984C24F169E1FF0FFA1C90F /* AppModel.swift */; };
 		4003A8C039E13B6A238B1E4B /* DeviceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BBE619B28D4726FF74870 /* DeviceSettings.swift */; };
 		432685149FDDAC7B0F65A630 /* BatteryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1680303CE798910455F25ACF /* BatteryInfo.swift */; };
 		4544D3DFCA1880ABA5856EF7 /* SoundMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BCBEE50C33C16E5E8990B9 /* SoundMode.swift */; };
@@ -87,6 +88,7 @@
 /* Begin PBXFileReference section */
 		00D1A3C1D4B5BC62A3E9A907 /* ANCMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANCMode.swift; sourceTree = "<group>"; };
 		0310E594CA3E495279D9E7C9 /* XiaomiEarbuds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaomiEarbuds.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0984C24F169E1FF0FFA1C90F /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		0F1BF6F9EA111ABA644748B4 /* TypographyTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyTokens.swift; sourceTree = "<group>"; };
 		1680303CE798910455F25ACF /* BatteryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInfo.swift; sourceTree = "<group>"; };
 		17BCBEE50C33C16E5E8990B9 /* SoundMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundMode.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				9D650C4D73B543DD8420C894 /* AppDelegate.swift */,
+				0984C24F169E1FF0FFA1C90F /* AppModel.swift */,
 				61800F87D8469D09A33D5C1A /* XiaomiEarbudsApp.swift */,
 			);
 			path = App;
@@ -425,7 +428,7 @@
 			path = Tokens;
 			sourceTree = "<group>";
 		};
-		"TEMP_628C7023-0DC4-4660-A023-E736E5A510AF" /* Resources */ = {
+		"TEMP_CA96CD98-FB5B-4797-BA27-BEEDDCED66A4" /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -517,6 +520,7 @@
 				74B07FE8986B0F367AD59D28 /* ANCModePicker.swift in Sources */,
 				F2B787E40C22DFAE30CA47B2 /* AppDelegate.swift in Sources */,
 				6873613D8D4CC8B537DA1247 /* AppLogger.swift in Sources */,
+				3CBABCADD3A0CC884E70214E /* AppModel.swift in Sources */,
 				FDF0F1602D2000FEA9E7C268 /* AppSettings.swift in Sources */,
 				761D653E34DC395F3BFA3330 /* AudioCodec.swift in Sources */,
 				5EA86F229CF93126C60C9D9C /* AudioPage.swift in Sources */,

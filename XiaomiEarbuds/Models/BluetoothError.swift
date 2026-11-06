@@ -49,7 +49,7 @@ enum BluetoothError: Error, LocalizedError, Sendable {
         case .rfcommChannelFailed:
             return "Failed to open RFCOMM channel."
         case .rfcommBusy:
-            return "Can't open the control channel. Close the Xiaomi Earbuds app on your phone (it holds the channel), make sure the earbuds are out of the case, then tap Connect."
+            return "Can't open the control channel. Make sure the Xiaomi Earbuds app on your phone is closed and the earbuds are out of the case. If it still fails, put both earbuds back in the case, close the lid for 5 seconds, then take them out and tap Connect."
         case .notConnected:
             return "No device is currently connected."
         case .alreadyConnected:

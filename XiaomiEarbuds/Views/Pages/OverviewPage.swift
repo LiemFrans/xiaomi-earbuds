@@ -14,9 +14,9 @@ struct OverviewPage: View {
             Section("Battery") {
                 let bat = deviceVM.device.batteryInfo
                 VStack(spacing: 8) {
-                    BatteryGaugeView(label: "Left", level: bat.leftLevel, isCharging: bat.left.isCharging, systemImage: "earbud.left")
-                    BatteryGaugeView(label: "Right", level: bat.rightLevel, isCharging: bat.right.isCharging, systemImage: "earbud.right")
-                    BatteryGaugeView(label: "Case", level: bat.caseLevel, isCharging: bat.batteryCase.isCharging, systemImage: "earbuds.case")
+                    BatteryGaugeView(label: "Left", level: bat.left.level, isCharging: bat.left.isCharging, systemImage: "earbud.left")
+                    BatteryGaugeView(label: "Right", level: bat.right.level, isCharging: bat.right.isCharging, systemImage: "earbud.right")
+                    BatteryGaugeView(label: "Case", level: bat.batteryCase.level, isCharging: bat.batteryCase.isCharging, systemImage: "earbuds.case")
                 }
                 .padding(.vertical, 4)
             }

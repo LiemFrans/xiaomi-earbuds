@@ -4,8 +4,8 @@ import os.log
 import IOBluetooth
 #endif
 
-/// Manages Classic Bluetooth RFCOMM communication with the REDMI Buds 8 Pro
-/// over the MIWEAR proprietary service (channel 28).
+/// Manages Classic Bluetooth RFCOMM communication with Xiaomi earbuds
+/// over the MIWEAR proprietary service (channel resolved from SDP).
 ///
 /// Receives raw bytes, buffers them, extracts complete RCSP frames,
 /// and delivers them via an `AsyncStream<RCSPFrame>`.
@@ -71,15 +71,43 @@ final class ClassicBTManager: NSObject {
         channelDelegate = delegate
         rxBuffer = []
 
-        logger.info("Opening RFCOMM channel \(channelID) to \(address)…")
+        // The MIWEAR channel number can move between sessions, so resolve it
+        // from the SDP record by UUID and fall back to the configured default.
+        let resolvedChannel = Self.miwearChannel(for: btDevice) ?? channelID
+        if resolvedChannel != channelID {
+            logger.info("SDP reports MIWEAR on channel \(resolvedChannel) (config had \(channelID))")
+        }
+
+        logger.info("Opening RFCOMM channel \(resolvedChannel) to \(address)…")
         logger.debug("Device paired: \(btDevice.isPaired()), connected: \(btDevice.isConnected())")
 
         var channel: IOBluetoothRFCOMMChannel?
-        let result = btDevice.openRFCOMMChannelSync(
+        var result = btDevice.openRFCOMMChannelSync(
             &channel,
-            withChannelID: channelID,
+            withChannelID: resolvedChannel,
             delegate: delegate
         )
+
+        // Firmware keeps the old control session for a while after an abrupt
+        // close. Tearing the ACL link down once clears it; macOS reconnects
+        // audio automatically.
+        if result != kIOReturnSuccess {
+            logger.warning("First RFCOMM open failed (\(result)) — resetting ACL link and retrying")
+            _ = btDevice.closeConnection()
+            pumpRunLoop(1.0)
+            _ = btDevice.openConnection()
+            pumpRunLoop(1.5)
+
+            let retryChannel = Self.miwearChannel(for: btDevice) ?? resolvedChannel
+            result = btDevice.openRFCOMMChannelSync(
+                &channel,
+                withChannelID: retryChannel,
+                delegate: delegate
+            )
+            if result == kIOReturnSuccess {
+                logger.info("✅ RFCOMM opened after ACL reset (channel \(retryChannel))")
+            }
+        }
 
         if result != kIOReturnSuccess {
             logger.error("openRFCOMMChannelSync failed: IOReturn=\(result) (0x\(String(format: "%08x", UInt32(bitPattern: Int32(result)))))")
@@ -105,6 +133,36 @@ final class ClassicBTManager: NSObject {
         #else
         throw BluetoothError.rfcommChannelFailed
         #endif
+    }
+
+
+
+    /// Waits without blocking IOBluetooth's delegate delivery, which needs the
+    /// main run loop to keep turning while we sit inside a synchronous call.
+    private func pumpRunLoop(_ seconds: TimeInterval) {
+        let deadline = Date().addingTimeInterval(seconds)
+        while Date() < deadline {
+            RunLoop.current.run(mode: .default, before: Date().addingTimeInterval(0.05))
+        }
+    }
+
+    /// Resolves the MIWEAR RFCOMM channel from the device's SDP records.
+    private static func miwearChannel(for device: IOBluetoothDevice) -> UInt8? {
+        let target = ProtocolConstants.miwearServiceUUID.lowercased()
+        guard let services = device.services as? [IOBluetoothSDPServiceRecord] else {
+            _ = device.performSDPQuery(nil)
+            return nil
+        }
+        for service in services {
+            let uuid = (service.attributes as? [NSNumber: Any])?[0x0001 as NSNumber]
+            let uuidText = uuid.map { "\($0)" }?.lowercased() ?? ""
+            let isMiwear = uuidText.contains("fd2d") || uuidText == target
+            var channel: BluetoothRFCOMMChannelID = 0
+            if isMiwear, service.getRFCOMMChannelID(&channel) == kIOReturnSuccess {
+                return channel
+            }
+        }
+        return nil
     }
 
     func disconnect() {

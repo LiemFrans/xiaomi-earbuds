@@ -2,19 +2,22 @@ import SwiftUI
 
 struct BatteryGaugeView: View {
     let label: String
-    let level: Int
+    /// `nil` when the firmware cannot report this component right now.
+    let level: Int?
     let isCharging: Bool
     let systemImage: String
 
-    init(label: String, level: Int, isCharging: Bool = false, systemImage: String = "battery.100percent") {
+    init(label: String, level: Int?, isCharging: Bool = false, systemImage: String = "battery.100percent") {
         self.label = label
-        self.level = max(0, min(100, level))
+        self.level = level.map { max(0, min(100, $0)) }
         self.isCharging = isCharging
         self.systemImage = systemImage
     }
 
+    private var isUnknown: Bool { level == nil }
+
     private var batteryColor: Color {
-        ColorTokens.batteryColor(for: level)
+        isUnknown ? .secondary : ColorTokens.batteryColor(for: level ?? 0)
     }
 
     var body: some View {
@@ -27,23 +30,28 @@ struct BatteryGaugeView: View {
             .foregroundStyle(.secondary)
             .frame(width: 60, alignment: .leading)
 
-            ProgressView(value: Double(level), total: 100)
+            ProgressView(value: Double(level ?? 0), total: 100)
                 .tint(batteryColor)
                 .progressViewStyle(.linear)
+                .opacity(isUnknown ? 0.3 : 1)
 
-            if isCharging {
+            if isCharging && !isUnknown {
                 Image(systemName: "bolt.fill")
                     .font(.caption2)
                     .foregroundStyle(.yellow)
                     .frame(width: 12)
             }
 
-            Text("\(level)%")
+            Text(isUnknown ? "—" : "\(level ?? 0)%")
                 .font(.caption.monospacedDigit().weight(.medium))
                 .foregroundStyle(batteryColor)
                 .frame(width: 34, alignment: .trailing)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(label), \(level) percent\(isCharging ? ", charging" : "")")
+        .accessibilityLabel(
+            isUnknown
+                ? "\(label), unknown"
+                : "\(label), \(level ?? 0) percent\(isCharging ? ", charging" : "")"
+        )
     }
 }

@@ -8,15 +8,19 @@ final class DeviceViewModel {
     var connectionState: ConnectionState
     var connectionError: String?
     var lastError: String?
+    /// Set to true briefly when earbuds connect — triggers popover flash
+    var justConnected: Bool = false
 
     var isConnected: Bool { connectionState == .connected }
 
     let bluetoothManager: BluetoothManager
     private(set) var protocol_: XiaomiProtocol?
+    private let monitor = DeviceMonitor()
 
     private var cancellables = Set<AnyCancellable>()
     private var batteryRefreshTask: Task<Void, Never>?
     private var consecutiveFailures = 0
+    private var featureVMs: (nc: NoiseControlViewModel, au: AudioViewModel, sa: SpatialAudioViewModel, ge: GestureViewModel, se: SettingsViewModel)?
     private let logger = Logger(subsystem: "com.xiaomi.earbuds", category: "DeviceVM")
 
     private var noiseControlVM: NoiseControlViewModel?
@@ -35,11 +39,36 @@ final class DeviceViewModel {
         settings: SettingsViewModel
     ) {
         self.noiseControlVM = noiseControl
+        self.featureVMs = (noiseControl, audio, spatialAudio, gesture, settings)
+    }
+
+    /// Start monitoring Bluetooth for earbuds appearing/disappearing.
+    func startMonitoring() {
+        monitor.onDeviceConnected = { [weak self] in
+            guard let self, !self.isConnected, self.connectionState != .connecting else { return }
+            self.logger.info("🔵 Auto-connect triggered by device monitor")
+            Task { await self.connectAndLoadState() }
+        }
+        monitor.onDeviceDisconnected = { [weak self] in
+            guard let self, self.isConnected else { return }
+            self.logger.info("⚪ Device monitor detected earbuds gone")
+            self.stopPeriodicBatteryRefresh()
+            Task { await self.protocol_?.stopListening() }
+            self.bluetoothManager.classicManager.disconnect()
+            self.protocol_ = nil
+            self.cancellables.removeAll()
+            self.markDisconnected()
+        }
+        monitor.start()
     }
 
     // MARK: - Connect
 
     func connect() async {
+        await connectAndLoadState()
+    }
+
+    private func connectAndLoadState() async {
         connectionError = nil
         lastError = nil
         connectionState = .connecting
@@ -74,6 +103,20 @@ final class DeviceViewModel {
                 startPeriodicBatteryRefresh()
 
                 logger.info("🎉 Connected! Battery: L=\(self.device.batteryInfo.leftLevel)% R=\(self.device.batteryInfo.rightLevel)% C=\(self.device.batteryInfo.caseLevel)%")
+
+                // Notify + flash popover
+                DeviceMonitor.sendNotification(
+                    title: "REDMI Buds 8 Pro Connected",
+                    body: "🔋 L:\(device.batteryInfo.leftLevel)% R:\(device.batteryInfo.rightLevel)% Case:\(device.batteryInfo.caseLevel)%"
+                )
+                justConnected = true
+                Task {
+                    try? await Task.sleep(for: .seconds(5))
+                    self.justConnected = false
+                }
+
+                // Load feature state
+                await loadFeatureState(proto)
                 return
             } catch {
                 logger.warning("❌ Attempt \(attempt) failed: \(error.localizedDescription)")
@@ -87,6 +130,21 @@ final class DeviceViewModel {
         }
     }
 
+    private func loadFeatureState(_ proto: XiaomiProtocol) async {
+        guard let vms = featureVMs else { return }
+        vms.nc.configure(protocol: proto)
+        vms.au.configure(protocol: proto)
+        vms.sa.configure(protocol: proto)
+        vms.ge.configure(protocol: proto)
+        vms.se.configure(protocol: proto)
+
+        async let nc: () = vms.nc.loadFromDevice()
+        async let au: () = vms.au.loadFromDevice()
+        async let ge: () = vms.ge.loadFromDevice()
+        async let se: () = vms.se.loadFromDevice()
+        _ = await (nc, au, ge, se)
+    }
+
     func disconnect() async {
         stopPeriodicBatteryRefresh()
         await protocol_?.stopListening()
@@ -96,7 +154,6 @@ final class DeviceViewModel {
         markDisconnected()
     }
 
-    /// Central place to transition to disconnected state.
     private func markDisconnected() {
         guard connectionState != .disconnected else { return }
         logger.warning("📴 Marking as disconnected")
@@ -111,7 +168,7 @@ final class DeviceViewModel {
         protocol_ = nil
     }
 
-    // MARK: - Battery heartbeat (also detects dead connections)
+    // MARK: - Battery heartbeat
 
     func refreshBattery() async {
         guard isConnected, let proto = protocol_ else { return }
@@ -149,7 +206,7 @@ final class DeviceViewModel {
         batteryRefreshTask = nil
     }
 
-    // MARK: - Events from earbuds
+    // MARK: - Events
 
     private func subscribeToEvents(_ proto: XiaomiProtocol) {
         cancellables.removeAll()
@@ -174,7 +231,7 @@ final class DeviceViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 guard let self else { return }
-                self.logger.warning("⚠️ RFCOMM channel closed by earbuds")
+                self.logger.warning("⚠️ RFCOMM channel closed")
                 self.stopPeriodicBatteryRefresh()
                 self.protocol_ = nil
                 self.cancellables.removeAll()

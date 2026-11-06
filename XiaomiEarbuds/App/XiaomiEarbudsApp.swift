@@ -18,7 +18,7 @@ struct XiaomiEarbudsApp: App {
                 .environment(spatialAudioVM)
                 .environment(gestureVM)
                 .environment(settingsVM)
-                .task { await autoConnect() }
+                .task { await setup() }
         }
         .defaultSize(width: 780, height: 600)
 
@@ -31,7 +31,7 @@ struct XiaomiEarbudsApp: App {
         .menuBarExtraStyle(.window)
     }
 
-    private func autoConnect() async {
+    private func setup() async {
         deviceVM.configureFeatureViewModels(
             noiseControl: noiseControlVM,
             audio: audioVM,
@@ -40,22 +40,10 @@ struct XiaomiEarbudsApp: App {
             settings: settingsVM
         )
 
+        // Start monitoring — auto-connects when earbuds appear on Bluetooth
+        deviceVM.startMonitoring()
+
+        // Also try to connect immediately if earbuds are already paired
         await deviceVM.connect()
-
-        guard deviceVM.isConnected, let proto = deviceVM.protocol_ else { return }
-
-        // Inject the live protocol into all feature VMs
-        noiseControlVM.configure(protocol: proto)
-        audioVM.configure(protocol: proto)
-        spatialAudioVM.configure(protocol: proto)
-        gestureVM.configure(protocol: proto)
-        settingsVM.configure(protocol: proto)
-
-        // Load state concurrently
-        async let nc: () = noiseControlVM.loadFromDevice()
-        async let au: () = audioVM.loadFromDevice()
-        async let ge: () = gestureVM.loadFromDevice()
-        async let se: () = settingsVM.loadFromDevice()
-        _ = await (nc, au, ge, se)
     }
 }

@@ -55,6 +55,7 @@
 		ABB4FDCF9B5AACB5055039F8 /* ContentRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E18791D4966488A220F16B /* ContentRouter.swift */; };
 		ACB1E45F1B1327F8201F1760 /* ClassicBTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258E15611AEE5A4610F2603F /* ClassicBTManager.swift */; };
 		AD621CECFD6AD0FA933E6C21 /* GestureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386A363C89E1FB6CBF87A136 /* GestureAction.swift */; };
+		B21302B5686384C685DA4E73 /* DeviceMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6520F33FF6B83AC4206D537D /* DeviceMonitor.swift */; };
 		B2B84C5B3441FE8A7AF4A491 /* TypographyTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1BF6F9EA111ABA644748B4 /* TypographyTokens.swift */; };
 		B5AD66FBFE0F0E9B95A8BC1D /* ProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625915601B103A656F8CC01 /* ProtocolTests.swift */; };
 		C0494C7962F40B28AF07C313 /* SectionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314F9DD3518CB171DDFBAAD6 /* SectionCard.swift */; };
@@ -106,6 +107,7 @@
 		5BF67FA9FA15434901560C84 /* GestureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureViewModel.swift; sourceTree = "<group>"; };
 		5EB86F18BF277D215755CE2F /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		61800F87D8469D09A33D5C1A /* XiaomiEarbudsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XiaomiEarbudsApp.swift; sourceTree = "<group>"; };
+		6520F33FF6B83AC4206D537D /* DeviceMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceMonitor.swift; sourceTree = "<group>"; };
 		6F2EB2F62EDC4EB8359BC19E /* MainWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowView.swift; sourceTree = "<group>"; };
 		72B962C1B24F8F4D99043CFD /* GesturesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesPage.swift; sourceTree = "<group>"; };
 		745BBE619B28D4726FF74870 /* DeviceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSettings.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				CBBCD283C10D44D491EBA503 /* BLEManager.swift */,
 				BCF13178ACD040A050B1B94C /* BluetoothManager.swift */,
 				258E15611AEE5A4610F2603F /* ClassicBTManager.swift */,
+				6520F33FF6B83AC4206D537D /* DeviceMonitor.swift */,
 			);
 			path = Bluetooth;
 			sourceTree = "<group>";
@@ -422,7 +425,7 @@
 			path = Tokens;
 			sourceTree = "<group>";
 		};
-		"TEMP_586EE8EE-B8ED-4610-B616-16DEBDCF9349" /* Resources */ = {
+		"TEMP_628C7023-0DC4-4660-A023-E736E5A510AF" /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -536,6 +539,7 @@
 				2338EEF4ABC43D54595ACBE4 /* DepthSlider.swift in Sources */,
 				92FEFEFE0553C795F2CEC7DA /* DeviceHeaderView.swift in Sources */,
 				9AE37E0FCB4E3E3CCCE04B67 /* DeviceModels.swift in Sources */,
+				B21302B5686384C685DA4E73 /* DeviceMonitor.swift in Sources */,
 				4003A8C039E13B6A238B1E4B /* DeviceSettings.swift in Sources */,
 				20E699F39DC25EE486B6D22F /* DeviceStore.swift in Sources */,
 				19FEAC9A4E6694A2F013FF60 /* DeviceViewModel.swift in Sources */,

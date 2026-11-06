@@ -160,6 +160,10 @@ final class DeviceViewModel {
         connectionState = .disconnected
         device.isConnected = false
         device.batteryInfo = .empty
+        DeviceMonitor.sendNotification(
+            title: "REDMI Buds 8 Pro Disconnected",
+            body: "Earbuds disconnected. Will auto-reconnect when available."
+        )
     }
 
     private func cleanupAfterFailure() async {

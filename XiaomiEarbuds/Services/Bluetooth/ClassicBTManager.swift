@@ -85,9 +85,14 @@ final class ClassicBTManager: NSObject {
             logger.error("openRFCOMMChannelSync failed: IOReturn=\(result) (0x\(String(format: "%08x", UInt32(bitPattern: Int32(result)))))")
             logger.error("Device state — paired: \(btDevice.isPaired()), connected: \(btDevice.isConnected()), name: \(btDevice.name ?? "nil")")
 
-            // -536870186 = kIOReturnExclusiveAccess: another host (phone) holds
-            // the MIWEAR control channel. Do not keep retrying.
-            if result == kIOReturnExclusiveAccess {
+            // Any refusal here means another host (phone) owns the control
+            // channel, or the earbuds are asleep. Both are fixed on the phone
+            // side — keep a long cooldown rather than hammering the device.
+            //   -536870186 kIOReturnExclusiveAccess
+            //   -536870212 kIOReturnNotPermitted
+            let exclusiveAccess = -536870186
+            let notPermitted = -536870212
+            if result == exclusiveAccess || result == notPermitted {
                 throw BluetoothError.rfcommBusy
             }
             throw BluetoothError.rfcommChannelFailed

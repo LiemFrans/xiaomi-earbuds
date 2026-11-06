@@ -49,7 +49,7 @@ enum BluetoothError: Error, LocalizedError, Sendable {
         case .rfcommChannelFailed:
             return "Failed to open RFCOMM channel."
         case .rfcommBusy:
-            return "Control channel is busy — close the Xiaomi Earbuds app on your phone to let this Mac control the earbuds."
+            return "Can't open the control channel. Close the Xiaomi Earbuds app on your phone (it holds the channel), make sure the earbuds are out of the case, then tap Connect."
         case .notConnected:
             return "No device is currently connected."
         case .alreadyConnected:

@@ -26,6 +26,10 @@ final class DeviceViewModel {
     private var noiseControlVM: NoiseControlViewModel?
     /// Cooldown after failed connect — don't let monitor retry immediately
     private var connectCooldownUntil: ContinuousClock.Instant?
+    /// When the current session began — used to spot near-instant drops.
+    private var connectedAt = Date()
+    /// Prevents overlapping connect flows (monitor + manual).
+    private var isConnecting = false
 
     init(device: EarbudDevice = EarbudDevice(), connectionState: ConnectionState = .disconnected) {
         self.device = device
@@ -77,6 +81,13 @@ final class DeviceViewModel {
     }
 
     private func connectAndLoadState(isAuto: Bool) async {
+        guard !isConnecting else {
+            logger.debug("Connect already in progress — ignoring duplicate request")
+            return
+        }
+        isConnecting = true
+        defer { isConnecting = false }
+
         connectionError = nil
         lastError = nil
         connectionState = .connecting
@@ -108,6 +119,7 @@ final class DeviceViewModel {
                 connectionError = nil
                 consecutiveFailures = 0
                 connectCooldownUntil = nil   // clear any cooldown after success
+                connectedAt = Date()
 
                 let info = try await proto.getDeviceInfo()
                 if !info.name.isEmpty { device.internalName = info.name }
@@ -136,16 +148,18 @@ final class DeviceViewModel {
             } catch {
                 logger.warning("❌ Attempt \(attempt) failed: \(error.localizedDescription)")
                 await cleanupAfterFailure()
-                if attempt == maxAttempts {
+
+                // A busy control channel never clears by retrying — stop at once.
+                var isBusy = false
+                if case BluetoothError.rfcommBusy = error { isBusy = true }
+
+                if isBusy || attempt == maxAttempts {
                     connectionError = error.localizedDescription
                     lastError = error.localizedDescription
                     connectionState = .disconnected
-                    // Longer cooldown when the phone holds the channel — retrying won't help
-                    var isBusy = false
-                    if case BluetoothError.rfcommBusy = error { isBusy = true }
-                    let cooldown: Duration = isBusy ? .seconds(120) : .seconds(30)
-                    connectCooldownUntil = .now + cooldown
+                    connectCooldownUntil = .now + (isBusy ? .seconds(120) : .seconds(30))
                     logger.info("⏳ Cooldown before next auto-connect (busy: \(isBusy))")
+                    if isBusy { return }
                 }
             }
         }
@@ -262,10 +276,16 @@ final class DeviceViewModel {
             .sink { [weak self] in
                 guard let self else { return }
                 self.logger.warning("⚠️ RFCOMM channel closed")
+                let wasHealthy = Date().timeIntervalSince(self.connectedAt) > 5
                 self.stopPeriodicBatteryRefresh()
                 self.protocol_ = nil
                 self.cancellables.removeAll()
                 self.markDisconnected()
+                // Dropped almost immediately → the phone took the channel back
+                if !wasHealthy {
+                    self.connectionError = BluetoothError.rfcommBusy.errorDescription
+                    self.connectCooldownUntil = .now + .seconds(60)
+                }
             }
             .store(in: &cancellables)
     }

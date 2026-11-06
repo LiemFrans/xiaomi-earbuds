@@ -83,6 +83,15 @@ open XiaomiEarbuds.xcodeproj
 4. Pair your earbuds in System Settings → Bluetooth
 5. The app auto-connects on launch
 
+### If the app can't open the control channel
+
+The earbuds only serve one control session at a time. If a different host held it — or a previous
+session ended abruptly — the firmware refuses the channel until it is power-cycled:
+
+1. Quit the Xiaomi Earbuds app on your phone
+2. Put **both** earbuds in the case and close the lid for ~5 seconds
+3. Reopen the lid, take the earbuds out, and click **Connect**
+
 ## 🔬 Protocol Documentation
 
 See [`docs/PROTOCOL_RE_FINDINGS.md`](docs/PROTOCOL_RE_FINDINGS.md) for the full reverse-engineered protocol specification, including:

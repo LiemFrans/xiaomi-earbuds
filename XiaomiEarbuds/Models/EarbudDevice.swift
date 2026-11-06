@@ -9,7 +9,7 @@ final class EarbudDevice {
     var batteryInfo: BatteryInfo
 
     init(
-        name: String = "REDMI Buds 8 Pro",
+        name: String = "Xiaomi Earbuds",
         isConnected: Bool = false,
         firmwareVersion: String = "—",
         batteryInfo: BatteryInfo = .empty
@@ -22,7 +22,7 @@ final class EarbudDevice {
 
     static let mock: EarbudDevice = {
         let d = EarbudDevice(
-            name: "REDMI Buds 8 Pro",
+            name: "Xiaomi Earbuds",
             isConnected: true,
             firmwareVersion: "3.2.2.6",
             batteryInfo: .mock

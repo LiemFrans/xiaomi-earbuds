@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct DeviceHeaderView: View {
-    var deviceName: String = "REDMI Buds 8 Pro"
+    var deviceName: String = "Xiaomi Earbuds"
     var imageName: String = "headphones"
     var showDolbyBadge: Bool = true
 

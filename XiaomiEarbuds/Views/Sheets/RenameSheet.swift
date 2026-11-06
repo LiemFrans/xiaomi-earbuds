@@ -7,7 +7,7 @@ import SwiftUI
 struct RenameSheet: View {
     @Environment(\.dismiss) private var dismiss
 
-    @State private var newName: String = "REDMI Buds 8 Pro"
+    @State private var newName: String = ""
     @FocusState private var isTextFieldFocused: Bool
 
     private let maxCharacters = 30

@@ -5,7 +5,7 @@ import os.log
 final class SettingsViewModel {
     private(set) var dualConnection: Bool = true
     private(set) var autoAnswer: Bool = false
-    var deviceName: String = "REDMI Buds 8 Pro"
+    var deviceName: String = "Xiaomi Earbuds"
     var firmwareVersion: String = "—"
     var isFindingDevice: Bool = false
     var lastError: String?

@@ -82,6 +82,11 @@ final class DeviceViewModel {
 
                 try bluetoothManager.classicManager.connect()
 
+                // Read the Bluetooth display name from IOBluetooth (before RCSP auth)
+                if let btName = bluetoothManager.classicManager.connectedDeviceName, !btName.isEmpty {
+                    device.name = btName
+                }
+
                 let proto = XiaomiProtocol(classicManager: bluetoothManager.classicManager)
                 self.protocol_ = proto
 
@@ -106,7 +111,7 @@ final class DeviceViewModel {
 
                 // Notify + flash popover
                 DeviceMonitor.sendNotification(
-                    title: "REDMI Buds 8 Pro Connected",
+                    title: "\(device.name) Connected",
                     body: "🔋 L:\(device.batteryInfo.leftLevel)% R:\(device.batteryInfo.rightLevel)% Case:\(device.batteryInfo.caseLevel)%"
                 )
                 justConnected = true
@@ -161,7 +166,7 @@ final class DeviceViewModel {
         device.isConnected = false
         device.batteryInfo = .empty
         DeviceMonitor.sendNotification(
-            title: "REDMI Buds 8 Pro Disconnected",
+            title: "\(device.name) Disconnected",
             body: "Earbuds disconnected. Will auto-reconnect when available."
         )
     }

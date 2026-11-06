@@ -19,6 +19,15 @@ final class ClassicBTManager: NSObject {
 
     private(set) var isChannelOpen = false
 
+    /// The Bluetooth display name of the connected device (from IOBluetooth, not RCSP).
+    var connectedDeviceName: String? {
+        #if canImport(IOBluetooth)
+        return device?.name
+        #else
+        return nil
+        #endif
+    }
+
     #if canImport(IOBluetooth)
     private var rfcommChannel: IOBluetoothRFCOMMChannel?
     private var device: IOBluetoothDevice?

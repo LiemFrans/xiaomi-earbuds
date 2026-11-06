@@ -18,7 +18,7 @@ final class DeviceMonitor {
     private var wasConnected = false
 
     func start() {
-        logger.info("📡 Device monitor started — polling for REDMI Buds 8 Pro")
+        logger.info("📡 Device monitor started — polling for known earbuds")
         requestNotificationPermission()
 
         pollTask = Task { [weak self] in

@@ -31,7 +31,7 @@ struct MainWindowView: View {
             Text("Earbuds Disconnected")
                 .font(.title2)
                 .foregroundStyle(.secondary)
-            Text(deviceVM.connectionError ?? "Connect your REDMI Buds 8 Pro to get started.")
+            Text(deviceVM.connectionError ?? "Connect your earbuds to get started.")
                 .font(.callout)
                 .foregroundStyle(.tertiary)
                 .multilineTextAlignment(.center)

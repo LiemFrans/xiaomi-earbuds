@@ -19,7 +19,7 @@ struct MainWindowView: View {
                 disconnectedView
             }
         }
-        .navigationTitle(deviceVM.device.name)
+        .navigationTitle("Xiaomi Earbuds")
         .frame(minWidth: 680, idealWidth: 780, minHeight: 500, idealHeight: 600)
     }
 

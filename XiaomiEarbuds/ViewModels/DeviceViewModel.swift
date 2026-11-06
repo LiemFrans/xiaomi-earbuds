@@ -153,6 +153,7 @@ final class DeviceViewModel {
 
     private func loadFeatureState(_ proto: XiaomiProtocol) async {
         guard let vms = featureVMs else { return }
+        vms.se.deviceName = device.name
         vms.nc.configure(protocol: proto)
         vms.au.configure(protocol: proto)
         vms.sa.configure(protocol: proto)
@@ -178,11 +179,15 @@ final class DeviceViewModel {
     private func markDisconnected() {
         guard connectionState != .disconnected else { return }
         logger.warning("📴 Marking as disconnected")
+        let displayName = device.name
         connectionState = .disconnected
         device.isConnected = false
         device.batteryInfo = .empty
+        // Reset to generic identity so nothing is tied to a specific model
+        device.name = "Xiaomi Earbuds"
+        device.firmwareVersion = "—"
         DeviceMonitor.sendNotification(
-            title: "\(device.name) Disconnected",
+            title: "\(displayName) Disconnected",
             body: "Earbuds disconnected. Will auto-reconnect when available."
         )
     }

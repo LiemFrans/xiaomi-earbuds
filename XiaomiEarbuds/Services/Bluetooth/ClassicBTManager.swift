@@ -19,6 +19,20 @@ final class ClassicBTManager: NSObject {
 
     private(set) var isChannelOpen = false
 
+    /// Whether the earbuds are still connected at the ACL/audio level, even
+    /// when our control channel is not open.
+    var isDeviceLinkConnected: Bool {
+        #if canImport(IOBluetooth)
+        return IOBluetoothDevice(addressString: ProtocolConstants.knownDeviceAddress)?.isConnected() ?? false
+        #else
+        return false
+        #endif
+    }
+
+    /// True while we deliberately bounce the ACL link to clear a stale
+    /// firmware session. Link events during this window are ours, not the user's.
+    private(set) var isResettingLink = false
+
     /// The Bluetooth display name of the connected device (from IOBluetooth, not RCSP).
     var connectedDeviceName: String? {
         #if canImport(IOBluetooth)
@@ -42,6 +56,12 @@ final class ClassicBTManager: NSObject {
 
     /// Continuation for the one-shot open-channel call.
     private var openContinuation: CheckedContinuation<Void, Error>?
+
+    /// Frames that arrived before a listener attached. The firmware starts
+    /// pushing state the instant the channel opens, so they must be replayed
+    /// rather than dropped — dropping them loses the auth response.
+    private var pendingFrames: [RCSPFrame] = []
+    private static let pendingFrameLimit = 128
 
     // MARK: - Init
 
@@ -70,12 +90,21 @@ final class ClassicBTManager: NSObject {
         let delegate = RFCOMMChannelDelegate(manager: self)
         channelDelegate = delegate
         rxBuffer = []
+        pendingFrames.removeAll()
 
         // The MIWEAR channel number can move between sessions, so resolve it
         // from the SDP record by UUID and fall back to the configured default.
         let resolvedChannel = Self.miwearChannel(for: btDevice) ?? channelID
         if resolvedChannel != channelID {
             logger.info("SDP reports MIWEAR on channel \(resolvedChannel) (config had \(channelID))")
+        }
+
+        // RFCOMM needs the ACL link. macOS sometimes keeps the device paired but
+        // drops the link, and every channel open then fails with "not permitted".
+        if !btDevice.isConnected() {
+            logger.info("ACL link is down — bringing it up before opening RFCOMM…")
+            _ = btDevice.openConnection()
+            pumpRunLoop(3.0)
         }
 
         logger.info("Opening RFCOMM channel \(resolvedChannel) to \(address)…")
@@ -93,6 +122,8 @@ final class ClassicBTManager: NSObject {
         // audio automatically.
         if result != kIOReturnSuccess {
             logger.warning("First RFCOMM open failed (\(result)) — resetting ACL link and retrying")
+            isResettingLink = true
+            defer { isResettingLink = false }
             _ = btDevice.closeConnection()
             pumpRunLoop(1.0)
             _ = btDevice.openConnection()
@@ -186,7 +217,13 @@ final class ClassicBTManager: NSObject {
 
     // MARK: - Data Transfer
 
-    func sendData(_ data: Data) throws {
+    /// Serialises RFCOMM writes off the main thread. `writeSync` blocks while
+    /// the earbuds' receive buffer is full — on the main actor that also stalls
+    /// IOBluetooth's delegate delivery, so the responses we are waiting for can
+    /// never be parsed.
+    private static let writeQueue = DispatchQueue(label: "com.xiaomi.earbuds.rfcomm.write")
+
+    func sendData(_ data: Data) async throws {
         #if canImport(IOBluetooth)
         guard let channel = rfcommChannel, isChannelOpen else {
             logger.error("TX failed — channel not open (isChannelOpen=\(self.isChannelOpen), channel=\(self.rfcommChannel == nil ? "nil" : "exists"))")
@@ -196,8 +233,13 @@ final class ClassicBTManager: NSObject {
         let hex = data.map { String(format: "%02x", $0) }.joined(separator: " ")
         logger.debug("TX [\(data.count) bytes]: \(hex)")
 
-        var mutableBytes = Array(data)
-        let result = channel.writeSync(&mutableBytes, length: UInt16(mutableBytes.count))
+        let result: IOReturn = await withCheckedContinuation { continuation in
+            Self.writeQueue.async {
+                var mutableBytes = Array(data)
+                let status = channel.writeSync(&mutableBytes, length: UInt16(mutableBytes.count))
+                continuation.resume(returning: status)
+            }
+        }
 
         guard result == kIOReturnSuccess else {
             logger.error("TX writeSync failed: IOReturn=\(result)")
@@ -217,8 +259,14 @@ final class ClassicBTManager: NSObject {
         // If there's already a stream, finish the old one
         frameStreamContinuation?.finish()
 
+        let buffered = pendingFrames
+        pendingFrames.removeAll()
+
         return AsyncStream<RCSPFrame>(bufferingPolicy: .bufferingNewest(64)) { continuation in
             self.frameStreamContinuation = continuation
+            for frame in buffered {
+                continuation.yield(frame)
+            }
             continuation.onTermination = { @Sendable _ in }
         }
     }
@@ -242,7 +290,12 @@ final class ClassicBTManager: NSObject {
                 cont.yield(frame)
                 logger.debug("Frame yielded to stream ✓")
             } else {
-                logger.error("⚠️ Frame received but NO stream continuation — frame DROPPED! (op=0x\(String(format: "%02x", frame.opcode)))")
+                // No listener yet — keep it so the first request can still match.
+                pendingFrames.append(frame)
+                if pendingFrames.count > Self.pendingFrameLimit {
+                    pendingFrames.removeFirst()
+                }
+                logger.debug("Frame buffered until a listener attaches (op=0x\(String(format: "%02x", frame.opcode)))")
             }
         }
 

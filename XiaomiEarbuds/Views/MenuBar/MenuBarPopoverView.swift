@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 struct MenuBarPopoverView: View {
     @Environment(DeviceViewModel.self) private var deviceVM
@@ -23,18 +24,49 @@ struct MenuBarPopoverView: View {
             Divider()
 
             if !deviceVM.isConnected {
-                VStack(spacing: 12) {
-                    Image(systemName: "headphones").font(.system(size: 32)).foregroundStyle(.tertiary)
-                    Text("Disconnected").font(.subheadline).foregroundStyle(.secondary)
+                VStack(spacing: 10) {
+                    if deviceVM.isBluetoothPermissionDenied {
+                        Image(systemName: "hand.raised.fill")
+                            .font(.system(size: 30))
+                            .foregroundStyle(.orange)
+                        Text("Bluetooth permission needed")
+                            .font(.subheadline.weight(.medium))
+                        Text("Allow Xiaomi Earbuds in System Settings → Privacy & Security → Bluetooth, then try again.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Button("Open System Settings") {
+                            if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Bluetooth") {
+                                NSWorkspace.shared.open(url)
+                            }
+                        }
+                        .buttonStyle(.bordered).controlSize(.small)
+                    } else {
+                        Image(systemName: "headphones").font(.system(size: 32)).foregroundStyle(.tertiary)
+                        Text(deviceVM.isAwaitingBluetoothPermission ? "Waiting for Bluetooth permission…" : "Disconnected")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+
                     if deviceVM.connectionState == .connecting {
                         ProgressView().controlSize(.small)
-                    } else {
+                    } else if !deviceVM.isBluetoothPermissionDenied {
                         Button("Connect") { Task { await deviceVM.connect() } }
                             .buttonStyle(.borderedProminent).controlSize(.small)
                     }
+
+                    if let error = deviceVM.connectionError, !deviceVM.isBluetoothPermissionDenied {
+                        Text(error)
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 }
                 .frame(maxWidth: .infinity)
-                .padding(20)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 18)
             } else {
                 VStack(alignment: .leading, spacing: 10) {
                     // Battery

@@ -83,6 +83,11 @@ open XiaomiEarbuds.xcodeproj
 4. Pair your earbuds in System Settings → Bluetooth
 5. The app auto-connects on launch
 
+### First launch: allow Bluetooth
+
+macOS asks once for permission to use Bluetooth. Until you click **Allow** the app cannot connect —
+the popover shows a *Bluetooth permission needed* message with a shortcut to the right System Settings pane.
+
 ### If the app can't open the control channel
 
 The earbuds only serve one control session at a time. If a different host held it — or a previous

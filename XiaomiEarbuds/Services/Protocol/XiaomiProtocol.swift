@@ -46,6 +46,10 @@ actor XiaomiProtocol {
     // MARK: - Listening
 
     func startListening() async {
+        guard listenTask == nil else {
+            logger.debug("📡 Frame listener already running — reusing it")
+            return
+        }
         logger.info("📡 Starting frame listener…")
         let stream = await MainActor.run { classicManager.frameStream() }
         listenTask = Task { [weak self] in
@@ -222,7 +226,7 @@ actor XiaomiProtocol {
             Task { [weak self] in
                 guard let self else { return }
                 do {
-                    try await MainActor.run { try self.classicManager.sendData(data) }
+                    try await self.classicManager.sendData(data)
                 } catch {
                     await self.resolve(sn: sn, with: .failure(error))
                     return
@@ -349,7 +353,7 @@ actor XiaomiProtocol {
         Task { [weak self] in
             guard let self else { return }
             do {
-                try await MainActor.run { try self.classicManager.sendData(data) }
+                try await self.classicManager.sendData(data)
                 self.logger.debug("↩️ Sent \(label)")
             } catch {
                 self.logger.error("Failed to send \(label): \(error.localizedDescription)")

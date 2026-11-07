@@ -1,4 +1,7 @@
 import SwiftUI
+#if canImport(CoreBluetooth)
+import CoreBluetooth
+#endif
 @preconcurrency import Combine
 import os.log
 
@@ -30,6 +33,28 @@ final class DeviceViewModel {
     private var connectedAt = Date()
     /// Prevents overlapping connect flows (monitor + manual).
     private var isConnecting = false
+    private var supervisorTask: Task<Void, Never>?
+
+    /// macOS gates Classic Bluetooth behind a one-time permission prompt.
+    /// Until it is answered every connect attempt stalls, which looks like a
+    /// broken app unless we say so.
+    var isBluetoothPermissionDenied: Bool {
+        #if canImport(CoreBluetooth)
+        let status = CBManager.authorization
+        return status == .denied || status == .restricted
+        #else
+        return false
+        #endif
+    }
+
+    /// True while macOS is showing (or waiting on) the Bluetooth prompt.
+    var isAwaitingBluetoothPermission: Bool {
+        #if canImport(CoreBluetooth)
+        return CBManager.authorization == .notDetermined
+        #else
+        return false
+        #endif
+    }
 
     init(device: EarbudDevice = EarbudDevice(), connectionState: ConnectionState = .disconnected) {
         self.device = device
@@ -51,7 +76,8 @@ final class DeviceViewModel {
     /// Start monitoring Bluetooth for earbuds appearing/disappearing.
     func startMonitoring() {
         monitor.onDeviceConnected = { [weak self] in
-            guard let self, !self.isConnected, self.connectionState != .connecting else { return }
+            guard let self, !self.isConnected, self.connectionState != .connecting,
+                  !self.bluetoothManager.classicManager.isResettingLink else { return }
             // Respect cooldown after failed connects
             if let cooldown = self.connectCooldownUntil, ContinuousClock.now < cooldown {
                 self.logger.info("🔵 Earbuds detected but in cooldown — skipping auto-connect")
@@ -61,7 +87,12 @@ final class DeviceViewModel {
             Task { await self.connectAndLoadState(isAuto: true) }
         }
         monitor.onDeviceDisconnected = { [weak self] in
-            guard let self, self.isConnected else { return }
+            // Our own ACL reset (to clear a stale firmware session) shows up as
+            // a disconnect. Tearing the channel down here would kill the session
+            // we are in the middle of establishing.
+            guard let self, !self.isConnecting,
+                  !self.bluetoothManager.classicManager.isResettingLink else { return }
+            guard self.isConnected else { return }
             self.logger.info("⚪ Device monitor detected earbuds gone")
             self.stopPeriodicBatteryRefresh()
             Task { await self.protocol_?.stopListening() }
@@ -71,6 +102,24 @@ final class DeviceViewModel {
             self.markDisconnected()
         }
         monitor.start()
+        startConnectionSupervisor()
+    }
+
+    /// The earbuds often stay connected as an audio device while our control
+    /// channel is gone (firmware session lost, phone took it back, ACL bounce).
+    /// Nothing re-fires in that state, so poll and heal it ourselves.
+    private func startConnectionSupervisor() {
+        supervisorTask?.cancel()
+        supervisorTask = Task { [weak self] in
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(20))
+                guard let self, !self.isConnected, !self.isConnecting else { continue }
+                if let cooldown = self.connectCooldownUntil, ContinuousClock.now < cooldown { continue }
+                guard self.bluetoothManager.classicManager.isDeviceLinkConnected else { continue }
+                self.logger.info("🔁 Supervisor: link is up but control channel is closed — reconnecting")
+                await self.connectAndLoadState(isAuto: true)
+            }
+        }
     }
 
     // MARK: - Connect
